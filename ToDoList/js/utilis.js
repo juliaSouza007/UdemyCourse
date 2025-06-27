@@ -7,6 +7,14 @@ var access = document.getElementById('access');
 
 var loading = document.getElementById('loading');
 
+var auth = document.getElementById('auth');
+var userContent = document.getElementById('userContent');
+
+var userEmail = document.getElementById('userEmail');
+
+var sendEmailVerificationDiv = document.getElementById('sendEmailVerificationDiv');
+var emailVerified = document.getElementById('emailVerified');
+
 //alterar o forms de autenticação para cadastro
 function toogleToRegister() {
     authForm.submitAuthForm.innerHTML = 'Cadastre-se';
@@ -34,3 +42,33 @@ function hideItem(item) {
 function showItem(item) {
     item.style.display = 'block';
 }
+
+//mostrar conteúdo pra usuários não autenticados
+function showAuth() {
+    authForm.email.value = '';
+    authForm.password.value = '';
+    hideItem(userContent);
+    showItem(auth);
+}
+
+//mostrar conteúdo para usuários autenticados
+function showUserContent(user) {
+    console.log(user);
+    if (user.emailVerified) {
+        emailVerified.innerHTML = 'Seu e-mail foi verificado!';
+        hideItem(sendEmailVerificationDiv);
+    } else {
+        emailVerified.innerHTML = 'Seu e-mail não foi verificado!';
+        showItem(sendEmailVerificationDiv);
+    }
+    userEmail.innerHTML = user.email;
+    hideItem(auth);
+    showItem(userContent);
+}
+
+//parte que não podemos alterar atualmente
+/*
+var actionCodeSettings = {
+    url: 'http://127.0.0.1:5500/'
+}
+*/
