@@ -76,9 +76,21 @@
                 <button class="alternative" onclick="signOut()">Sair</button>
                 <button class="danger" onclick="deleteAccount()">Excluir conta</button>
             </div>
-        </div>
-    </div>
 
+            <hr>
+
+            <div class="center">
+                <!-- Forms de Tarefas -->
+                <form id="todoForm">
+                    <h3 id="todoFormTitle">Adicionar tarefa:</h3>
+                    <label for="todoInput">Tarefa:</label>
+                    <input type="text" id="name" placeholder="Tarefa">
+                    <button type="submit" id="submitTodoForm">Adicionar</button>
+                </form>
+            </div>
+        </div> 
+    </div>
+    
     <!-- Recursos do Firebase -->
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/7.8.1/firebase-auth.js"></script>
@@ -88,6 +100,6 @@
     <script src="js/utilis.js"></script>
     <script src="js/firebase.js"></script>
     <script src="js/auth.js"></script>
-
+    <script src="js/todo.js"></script>
 </body>
 </html>
