@@ -15,6 +15,8 @@ var userName = document.getElementById('userName');
 
 //definindo referências para realtime database
 var todoForm = document.getElementById('todoForm');
+var ulTodoList = document.getElementById('ulTodoList');
+var todoCount = document.getElementById('todoCount');
 
 //alterar o forms de autenticação para cadastro
 function toogleToRegister() {
@@ -59,7 +61,7 @@ function showUserContent(user) {
     console.log(user);
     //se for diferente de login por email e senha, não é necessário verificar o e-mail
     if (user.providerData[0].providerId != 'password') {
-        emailVerified.innerHTML = 'Autenticação por provedor confiável! Não é necessário verificar o e-mail!';
+        emailVerified.innerHTML = 'Autenticação por provedor confiável!<br>Não é necessário verificar o e-mail!';
         hideItem(sendEmailVerificationDiv);
     } else {
         if (user.emailVerified) {
@@ -75,12 +77,12 @@ function showUserContent(user) {
 
     userEmail.innerHTML = user.email;
     hideItem(auth);
-    showItem(userContent);
-}
 
-//parte que não podemos alterar atualmente
-var actionCodeSettings = {
-    url: 'http://todolist-38151.firebaseapp.com'
+    dbRefUsers.child(firebase.auth().currentUser.uid).on('value', function(dataSnapshot) {
+        fillTodoList(dataSnapshot);
+    });
+
+    showItem(userContent);
 }
 
 //centralizar e traduzir erros
@@ -117,6 +119,10 @@ function showError(prefix, error) {
     }
 }
 
+var actionCodeSettings = {
+    url: 'https://todolist-38151.firebaseapp.com'
+}
+
 var database = firebase.database();
-var bdRefUsers = database.ref('users');
+var dbRefUsers = database.ref('users');
 
