@@ -1,24 +1,20 @@
-//definindo referencias para os elementos da pagina HTML
+//definindo referências para os elementos da pagina HTML
 var authForm = document.getElementById('authForm');
 var authFormTitle = document.getElementById('authFormTitle');
-
 var register = document.getElementById('register');
 var access = document.getElementById('access');
-
 var loading = document.getElementById('loading');
-
 var auth = document.getElementById('auth');
 var userContent = document.getElementById('userContent');
-
 var userEmail = document.getElementById('userEmail');
-
 var sendEmailVerificationDiv = document.getElementById('sendEmailVerificationDiv');
 var emailVerified = document.getElementById('emailVerified');
-
 var passwordReset = document.getElementById('passwordReset');
-
 var userImg = document.getElementById('userImg');
 var userName = document.getElementById('userName');
+
+//definindo referências para realtime database
+var todoForm = document.getElementById('todoForm');
 
 //alterar o forms de autenticação para cadastro
 function toogleToRegister() {
@@ -120,3 +116,7 @@ function showError(prefix, error) {
         alert('Erro desconhecido: ' + error);
     }
 }
+
+var database = firebase.database();
+var bdRefUsers = database.ref('users');
+
