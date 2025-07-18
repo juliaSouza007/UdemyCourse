@@ -39,16 +39,40 @@ function fillTodoList (dataSnapshot) {
         liRemoveBtn.setAttribute('class', 'danger todoBtn'); //adiciona uma classe para estilização
         li.appendChild(liRemoveBtn); //adiciona o botão de remoção ao li
 
+        var liUpdateBtn = document.createElement('button'); //cria um botão para editar a tarefa
+        liUpdateBtn.appendChild(document.createTextNode('Editar')); //adiciona o texto ao botão
+        liUpdateBtn.setAttribute('onclick', 'updadeTodo(\"' + item.key + '\")'); //define a função de editar com o id da tarefa
+        liUpdateBtn.setAttribute('class', 'alternative todoBtn'); //adiciona uma classe para estilização
+        li.appendChild(liUpdateBtn); //adiciona o botão de editar ao li
+
         ulTodoList.appendChild(li); //adiciona o li à lista de tarefas
     });
 }
 
+// função para remover uma tarefa
 function removeTodo (key) {
     var selectedItem = document.getElementById(key);
     var confirmation = confirm('Você tem certeza que deseja remover a tarefa: "' + selectedItem.innerHTML + '"?');
     if (confirmation) {
         dbRefUsers.child(firebase.auth().currentUser.uid).child(key).remove().catch(function (error) {
-            showError("Falha ao remover a tarefa: ", error);
+          showError("Falha ao remover a tarefa: ", error);
         });
+    }
+}
+
+// função para atualizar uma tarefa
+function updadeTodo (key) {
+    var selectedItem = document.getElementById(key);
+    var newTodoName = prompt('Atualize o nome da tarefa: \"' + selectedItem.innerHTML + '\".', selectedItem.innerHTML);
+    if (newTodoName != '') {
+        var data = {
+          name: newTodoName
+        };
+
+        dbRefUsers.child(firebase.auth().currentUser.uid).child(key).update(data).catch(function (error) {
+          showError("Falha ao atualizar a tarefa: ", error);
+        });
+    } else {
+        alert('O nome da tarefa não pode ser em branco para atualizar!');
     }
 }
